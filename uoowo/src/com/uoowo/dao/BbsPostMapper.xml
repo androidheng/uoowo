@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsPostMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsPost" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="isfirst" property="isfirst" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="userip" property="userip" jdbcType="LONGVARCHAR" />
+    <result column="images" property="images" jdbcType="SMALLINT" />
+    <result column="files" property="files" jdbcType="SMALLINT" />
+    <result column="doctype" property="doctype" jdbcType="TINYINT" />
+    <result column="quotepid" property="quotepid" jdbcType="INTEGER" />
+    <result column="GG_reply_read" property="ggReplyRead" jdbcType="INTEGER" />
+    <result column="GG_reply_user" property="ggReplyUser" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.uoowo.bean.BbsPostWithBLOBs" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+    <result column="message_fmt" property="messageFmt" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pid, tid, uid, isfirst, create_date, userip, images, files, doctype, quotepid
+  </sql>
+  <sql id="Blob_Column_List" >
+    message, message_fmt
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.uoowo.bean.BbsPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_post
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bbs_post
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsPostExample" >
+    delete from bbs_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsPostWithBLOBs" >
+    insert into bbs_post (pid, tid, uid, 
+      isfirst, create_date, userip, 
+      images, files, doctype, 
+      quotepid, GG_reply_read, GG_reply_user, 
+      message, message_fmt)
+    values (#{pid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{isfirst,jdbcType=INTEGER}, #{createDate,jdbcType=INTEGER}, #{userip,jdbcType=INTEGER}, 
+      #{images,jdbcType=SMALLINT}, #{files,jdbcType=SMALLINT}, #{doctype,jdbcType=TINYINT}, 
+      #{quotepid,jdbcType=INTEGER}, #{ggReplyRead,jdbcType=INTEGER}, #{ggReplyUser,jdbcType=INTEGER}, 
+      #{message,jdbcType=LONGVARCHAR}, #{messageFmt,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsPostWithBLOBs" >
+    insert into bbs_post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="isfirst != null" >
+        isfirst,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="userip != null" >
+        userip,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="files != null" >
+        files,
+      </if>
+      <if test="doctype != null" >
+        doctype,
+      </if>
+      <if test="quotepid != null" >
+        quotepid,
+      </if>
+      <if test="ggReplyRead != null" >
+        GG_reply_read,
+      </if>
+      <if test="ggReplyUser != null" >
+        GG_reply_user,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="messageFmt != null" >
+        message_fmt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="isfirst != null" >
+        #{isfirst,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="userip != null" >
+        #{userip,jdbcType=INTEGER},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=SMALLINT},
+      </if>
+      <if test="files != null" >
+        #{files,jdbcType=SMALLINT},
+      </if>
+      <if test="doctype != null" >
+        #{doctype,jdbcType=TINYINT},
+      </if>
+      <if test="quotepid != null" >
+        #{quotepid,jdbcType=INTEGER},
+      </if>
+      <if test="ggReplyRead != null" >
+        #{ggReplyRead,jdbcType=INTEGER},
+      </if>
+      <if test="ggReplyUser != null" >
+        #{ggReplyUser,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="messageFmt != null" >
+        #{messageFmt,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsPostExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_post
+    <set >
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isfirst != null" >
+        isfirst = #{record.isfirst,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.userip != null" >
+        userip = #{record.userip,jdbcType=INTEGER},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=SMALLINT},
+      </if>
+      <if test="record.files != null" >
+        files = #{record.files,jdbcType=SMALLINT},
+      </if>
+      <if test="record.doctype != null" >
+        doctype = #{record.doctype,jdbcType=TINYINT},
+      </if>
+      <if test="record.quotepid != null" >
+        quotepid = #{record.quotepid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ggReplyRead != null" >
+        GG_reply_read = #{record.ggReplyRead,jdbcType=INTEGER},
+      </if>
+      <if test="record.ggReplyUser != null" >
+        GG_reply_user = #{record.ggReplyUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.messageFmt != null" >
+        message_fmt = #{record.messageFmt,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update bbs_post
+    set pid = #{record.pid,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      isfirst = #{record.isfirst,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      userip = #{record.userip,jdbcType=INTEGER},
+      images = #{record.images,jdbcType=SMALLINT},
+      files = #{record.files,jdbcType=SMALLINT},
+      doctype = #{record.doctype,jdbcType=TINYINT},
+      quotepid = #{record.quotepid,jdbcType=INTEGER},
+      GG_reply_read = #{record.ggReplyRead,jdbcType=INTEGER},
+      GG_reply_user = #{record.ggReplyUser,jdbcType=INTEGER},
+      message = #{record.message,jdbcType=LONGVARCHAR},
+      message_fmt = #{record.messageFmt,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_post
+    set pid = #{record.pid,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      isfirst = #{record.isfirst,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      userip = #{record.userip,jdbcType=INTEGER},
+      images = #{record.images,jdbcType=SMALLINT},
+      files = #{record.files,jdbcType=SMALLINT},
+      doctype = #{record.doctype,jdbcType=TINYINT},
+      quotepid = #{record.quotepid,jdbcType=INTEGER},
+      GG_reply_read = #{record.ggReplyRead,jdbcType=INTEGER},
+      GG_reply_user = #{record.ggReplyUser,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsPostWithBLOBs" >
+    update bbs_post
+    <set >
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="isfirst != null" >
+        isfirst = #{isfirst,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="userip != null" >
+        userip = #{userip,jdbcType=INTEGER},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=SMALLINT},
+      </if>
+      <if test="files != null" >
+        files = #{files,jdbcType=SMALLINT},
+      </if>
+      <if test="doctype != null" >
+        doctype = #{doctype,jdbcType=TINYINT},
+      </if>
+      <if test="quotepid != null" >
+        quotepid = #{quotepid,jdbcType=INTEGER},
+      </if>
+      <if test="ggReplyRead != null" >
+        GG_reply_read = #{ggReplyRead,jdbcType=INTEGER},
+      </if>
+      <if test="ggReplyUser != null" >
+        GG_reply_user = #{ggReplyUser,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="messageFmt != null" >
+        message_fmt = #{messageFmt,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.uoowo.bean.BbsPostWithBLOBs" >
+    update bbs_post
+    set tid = #{tid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      isfirst = #{isfirst,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=INTEGER},
+      userip = #{userip,jdbcType=INTEGER},
+      images = #{images,jdbcType=SMALLINT},
+      files = #{files,jdbcType=SMALLINT},
+      doctype = #{doctype,jdbcType=TINYINT},
+      quotepid = #{quotepid,jdbcType=INTEGER},
+      GG_reply_read = #{ggReplyRead,jdbcType=INTEGER},
+      GG_reply_user = #{ggReplyUser,jdbcType=INTEGER},
+      message = #{message,jdbcType=LONGVARCHAR},
+      message_fmt = #{messageFmt,jdbcType=LONGVARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsPost" >
+    update bbs_post
+    set tid = #{tid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      isfirst = #{isfirst,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=INTEGER},
+      userip = #{userip,jdbcType=INTEGER},
+      images = #{images,jdbcType=SMALLINT},
+      files = #{files,jdbcType=SMALLINT},
+      doctype = #{doctype,jdbcType=TINYINT},
+      quotepid = #{quotepid,jdbcType=INTEGER},
+      GG_reply_read = #{ggReplyRead,jdbcType=INTEGER},
+      GG_reply_user = #{ggReplyUser,jdbcType=INTEGER}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>

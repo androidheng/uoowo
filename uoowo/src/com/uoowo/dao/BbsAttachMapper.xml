@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsAttachMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsAttach" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="filesize" property="filesize" jdbcType="INTEGER" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="filename" property="filename" jdbcType="CHAR" />
+    <result column="orgfilename" property="orgfilename" jdbcType="CHAR" />
+    <result column="filetype" property="filetype" jdbcType="CHAR" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="CHAR" />
+    <result column="downloads" property="downloads" jdbcType="INTEGER" />
+    <result column="credits" property="credits" jdbcType="INTEGER" />
+    <result column="golds" property="golds" jdbcType="INTEGER" />
+    <result column="rmbs" property="rmbs" jdbcType="INTEGER" />
+    <result column="isimage" property="isimage" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    aid, tid, pid, uid, filesize, width, height, filename, orgfilename, filetype, create_date, 
+    comment, downloads, credits, golds, rmbs, isimage
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsAttachExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_attach
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_attach
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bbs_attach
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsAttachExample" >
+    delete from bbs_attach
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsAttach" >
+    insert into bbs_attach (aid, tid, pid, 
+      uid, filesize, width, 
+      height, filename, orgfilename, 
+      filetype, create_date, comment, 
+      downloads, credits, golds, 
+      rmbs, isimage)
+    values (#{aid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
+      #{uid,jdbcType=INTEGER}, #{filesize,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, 
+      #{height,jdbcType=INTEGER}, #{filename,jdbcType=CHAR}, #{orgfilename,jdbcType=CHAR}, 
+      #{filetype,jdbcType=CHAR}, #{createDate,jdbcType=INTEGER}, #{comment,jdbcType=CHAR}, 
+      #{downloads,jdbcType=INTEGER}, #{credits,jdbcType=INTEGER}, #{golds,jdbcType=INTEGER}, 
+      #{rmbs,jdbcType=INTEGER}, #{isimage,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsAttach" >
+    insert into bbs_attach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="filesize != null" >
+        filesize,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="orgfilename != null" >
+        orgfilename,
+      </if>
+      <if test="filetype != null" >
+        filetype,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="downloads != null" >
+        downloads,
+      </if>
+      <if test="credits != null" >
+        credits,
+      </if>
+      <if test="golds != null" >
+        golds,
+      </if>
+      <if test="rmbs != null" >
+        rmbs,
+      </if>
+      <if test="isimage != null" >
+        isimage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="filesize != null" >
+        #{filesize,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=CHAR},
+      </if>
+      <if test="orgfilename != null" >
+        #{orgfilename,jdbcType=CHAR},
+      </if>
+      <if test="filetype != null" >
+        #{filetype,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=CHAR},
+      </if>
+      <if test="downloads != null" >
+        #{downloads,jdbcType=INTEGER},
+      </if>
+      <if test="credits != null" >
+        #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="golds != null" >
+        #{golds,jdbcType=INTEGER},
+      </if>
+      <if test="rmbs != null" >
+        #{rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="isimage != null" >
+        #{isimage,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsAttachExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_attach
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_attach
+    <set >
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.filesize != null" >
+        filesize = #{record.filesize,jdbcType=INTEGER},
+      </if>
+      <if test="record.width != null" >
+        width = #{record.width,jdbcType=INTEGER},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=INTEGER},
+      </if>
+      <if test="record.filename != null" >
+        filename = #{record.filename,jdbcType=CHAR},
+      </if>
+      <if test="record.orgfilename != null" >
+        orgfilename = #{record.orgfilename,jdbcType=CHAR},
+      </if>
+      <if test="record.filetype != null" >
+        filetype = #{record.filetype,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=CHAR},
+      </if>
+      <if test="record.downloads != null" >
+        downloads = #{record.downloads,jdbcType=INTEGER},
+      </if>
+      <if test="record.credits != null" >
+        credits = #{record.credits,jdbcType=INTEGER},
+      </if>
+      <if test="record.golds != null" >
+        golds = #{record.golds,jdbcType=INTEGER},
+      </if>
+      <if test="record.rmbs != null" >
+        rmbs = #{record.rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="record.isimage != null" >
+        isimage = #{record.isimage,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_attach
+    set aid = #{record.aid,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      filesize = #{record.filesize,jdbcType=INTEGER},
+      width = #{record.width,jdbcType=INTEGER},
+      height = #{record.height,jdbcType=INTEGER},
+      filename = #{record.filename,jdbcType=CHAR},
+      orgfilename = #{record.orgfilename,jdbcType=CHAR},
+      filetype = #{record.filetype,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=CHAR},
+      downloads = #{record.downloads,jdbcType=INTEGER},
+      credits = #{record.credits,jdbcType=INTEGER},
+      golds = #{record.golds,jdbcType=INTEGER},
+      rmbs = #{record.rmbs,jdbcType=INTEGER},
+      isimage = #{record.isimage,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsAttach" >
+    update bbs_attach
+    <set >
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="filesize != null" >
+        filesize = #{filesize,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=CHAR},
+      </if>
+      <if test="orgfilename != null" >
+        orgfilename = #{orgfilename,jdbcType=CHAR},
+      </if>
+      <if test="filetype != null" >
+        filetype = #{filetype,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=CHAR},
+      </if>
+      <if test="downloads != null" >
+        downloads = #{downloads,jdbcType=INTEGER},
+      </if>
+      <if test="credits != null" >
+        credits = #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="golds != null" >
+        golds = #{golds,jdbcType=INTEGER},
+      </if>
+      <if test="rmbs != null" >
+        rmbs = #{rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="isimage != null" >
+        isimage = #{isimage,jdbcType=TINYINT},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsAttach" >
+    update bbs_attach
+    set tid = #{tid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      filesize = #{filesize,jdbcType=INTEGER},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      filename = #{filename,jdbcType=CHAR},
+      orgfilename = #{orgfilename,jdbcType=CHAR},
+      filetype = #{filetype,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=CHAR},
+      downloads = #{downloads,jdbcType=INTEGER},
+      credits = #{credits,jdbcType=INTEGER},
+      golds = #{golds,jdbcType=INTEGER},
+      rmbs = #{rmbs,jdbcType=INTEGER},
+      isimage = #{isimage,jdbcType=TINYINT}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>

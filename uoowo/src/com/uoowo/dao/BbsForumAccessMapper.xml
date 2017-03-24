@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsForumAccessMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsForumAccess" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <id column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="allowread" property="allowread" jdbcType="BIT" />
+    <result column="allowthread" property="allowthread" jdbcType="BIT" />
+    <result column="allowpost" property="allowpost" jdbcType="BIT" />
+    <result column="allowattach" property="allowattach" jdbcType="BIT" />
+    <result column="allowdown" property="allowdown" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, gid, allowread, allowthread, allowpost, allowattach, allowdown
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsForumAccessExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_forum_access
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsForumAccessKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_forum_access
+    where fid = #{fid,jdbcType=INTEGER}
+      and gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.uoowo.bean.BbsForumAccessKey" >
+    delete from bbs_forum_access
+    where fid = #{fid,jdbcType=INTEGER}
+      and gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsForumAccessExample" >
+    delete from bbs_forum_access
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsForumAccess" >
+    insert into bbs_forum_access (fid, gid, allowread, 
+      allowthread, allowpost, allowattach, 
+      allowdown)
+    values (#{fid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{allowread,jdbcType=BIT}, 
+      #{allowthread,jdbcType=BIT}, #{allowpost,jdbcType=BIT}, #{allowattach,jdbcType=BIT}, 
+      #{allowdown,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsForumAccess" >
+    insert into bbs_forum_access
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="allowread != null" >
+        allowread,
+      </if>
+      <if test="allowthread != null" >
+        allowthread,
+      </if>
+      <if test="allowpost != null" >
+        allowpost,
+      </if>
+      <if test="allowattach != null" >
+        allowattach,
+      </if>
+      <if test="allowdown != null" >
+        allowdown,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="allowread != null" >
+        #{allowread,jdbcType=BIT},
+      </if>
+      <if test="allowthread != null" >
+        #{allowthread,jdbcType=BIT},
+      </if>
+      <if test="allowpost != null" >
+        #{allowpost,jdbcType=BIT},
+      </if>
+      <if test="allowattach != null" >
+        #{allowattach,jdbcType=BIT},
+      </if>
+      <if test="allowdown != null" >
+        #{allowdown,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsForumAccessExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_forum_access
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_forum_access
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowread != null" >
+        allowread = #{record.allowread,jdbcType=BIT},
+      </if>
+      <if test="record.allowthread != null" >
+        allowthread = #{record.allowthread,jdbcType=BIT},
+      </if>
+      <if test="record.allowpost != null" >
+        allowpost = #{record.allowpost,jdbcType=BIT},
+      </if>
+      <if test="record.allowattach != null" >
+        allowattach = #{record.allowattach,jdbcType=BIT},
+      </if>
+      <if test="record.allowdown != null" >
+        allowdown = #{record.allowdown,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_forum_access
+    set fid = #{record.fid,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      allowread = #{record.allowread,jdbcType=BIT},
+      allowthread = #{record.allowthread,jdbcType=BIT},
+      allowpost = #{record.allowpost,jdbcType=BIT},
+      allowattach = #{record.allowattach,jdbcType=BIT},
+      allowdown = #{record.allowdown,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsForumAccess" >
+    update bbs_forum_access
+    <set >
+      <if test="allowread != null" >
+        allowread = #{allowread,jdbcType=BIT},
+      </if>
+      <if test="allowthread != null" >
+        allowthread = #{allowthread,jdbcType=BIT},
+      </if>
+      <if test="allowpost != null" >
+        allowpost = #{allowpost,jdbcType=BIT},
+      </if>
+      <if test="allowattach != null" >
+        allowattach = #{allowattach,jdbcType=BIT},
+      </if>
+      <if test="allowdown != null" >
+        allowdown = #{allowdown,jdbcType=BIT},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+      and gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsForumAccess" >
+    update bbs_forum_access
+    set allowread = #{allowread,jdbcType=BIT},
+      allowthread = #{allowthread,jdbcType=BIT},
+      allowpost = #{allowpost,jdbcType=BIT},
+      allowattach = #{allowattach,jdbcType=BIT},
+      allowdown = #{allowdown,jdbcType=BIT}
+    where fid = #{fid,jdbcType=INTEGER}
+      and gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>

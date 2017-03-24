@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsUserMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsUser" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="SMALLINT" />
+    <result column="email" property="email" jdbcType="CHAR" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="realname" property="realname" jdbcType="CHAR" />
+    <result column="idnumber" property="idnumber" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="password_sms" property="passwordSms" jdbcType="CHAR" />
+    <result column="salt" property="salt" jdbcType="CHAR" />
+    <result column="mobile" property="mobile" jdbcType="CHAR" />
+    <result column="qq" property="qq" jdbcType="CHAR" />
+    <result column="threads" property="threads" jdbcType="INTEGER" />
+    <result column="posts" property="posts" jdbcType="INTEGER" />
+    <result column="credits" property="credits" jdbcType="INTEGER" />
+    <result column="golds" property="golds" jdbcType="INTEGER" />
+    <result column="rmbs" property="rmbs" jdbcType="INTEGER" />
+    <result column="create_ip" property="createIp" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="login_ip" property="loginIp" jdbcType="INTEGER" />
+    <result column="login_date" property="loginDate" jdbcType="INTEGER" />
+    <result column="logins" property="logins" jdbcType="INTEGER" />
+    <result column="avatar" property="avatar" jdbcType="INTEGER" />
+    <result column="digests" property="digests" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uid, gid, email, username, realname, idnumber, password, password_sms, salt, mobile, 
+    qq, threads, posts, credits, golds, rmbs, create_ip, create_date, login_ip, login_date, 
+    logins, avatar, digests
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bbs_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsUserExample" >
+    delete from bbs_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsUser" >
+    insert into bbs_user (uid, gid, email, 
+      username, realname, idnumber, 
+      password, password_sms, salt, 
+      mobile, qq, threads, posts, 
+      credits, golds, rmbs, 
+      create_ip, create_date, login_ip, 
+      login_date, logins, avatar, 
+      digests)
+    values (#{uid,jdbcType=INTEGER}, #{gid,jdbcType=SMALLINT}, #{email,jdbcType=CHAR}, 
+      #{username,jdbcType=CHAR}, #{realname,jdbcType=CHAR}, #{idnumber,jdbcType=CHAR}, 
+      #{password,jdbcType=CHAR}, #{passwordSms,jdbcType=CHAR}, #{salt,jdbcType=CHAR}, 
+      #{mobile,jdbcType=CHAR}, #{qq,jdbcType=CHAR}, #{threads,jdbcType=INTEGER}, #{posts,jdbcType=INTEGER}, 
+      #{credits,jdbcType=INTEGER}, #{golds,jdbcType=INTEGER}, #{rmbs,jdbcType=INTEGER}, 
+      #{createIp,jdbcType=INTEGER}, #{createDate,jdbcType=INTEGER}, #{loginIp,jdbcType=INTEGER}, 
+      #{loginDate,jdbcType=INTEGER}, #{logins,jdbcType=INTEGER}, #{avatar,jdbcType=INTEGER}, 
+      #{digests,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsUser" >
+    insert into bbs_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="idnumber != null" >
+        idnumber,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="passwordSms != null" >
+        password_sms,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="threads != null" >
+        threads,
+      </if>
+      <if test="posts != null" >
+        posts,
+      </if>
+      <if test="credits != null" >
+        credits,
+      </if>
+      <if test="golds != null" >
+        golds,
+      </if>
+      <if test="rmbs != null" >
+        rmbs,
+      </if>
+      <if test="createIp != null" >
+        create_ip,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="loginIp != null" >
+        login_ip,
+      </if>
+      <if test="loginDate != null" >
+        login_date,
+      </if>
+      <if test="logins != null" >
+        logins,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="digests != null" >
+        digests,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=SMALLINT},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=CHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=CHAR},
+      </if>
+      <if test="idnumber != null" >
+        #{idnumber,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="passwordSms != null" >
+        #{passwordSms,jdbcType=CHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=CHAR},
+      </if>
+      <if test="threads != null" >
+        #{threads,jdbcType=INTEGER},
+      </if>
+      <if test="posts != null" >
+        #{posts,jdbcType=INTEGER},
+      </if>
+      <if test="credits != null" >
+        #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="golds != null" >
+        #{golds,jdbcType=INTEGER},
+      </if>
+      <if test="rmbs != null" >
+        #{rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="createIp != null" >
+        #{createIp,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=INTEGER},
+      </if>
+      <if test="loginDate != null" >
+        #{loginDate,jdbcType=INTEGER},
+      </if>
+      <if test="logins != null" >
+        #{logins,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=INTEGER},
+      </if>
+      <if test="digests != null" >
+        #{digests,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsUserExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_user
+    <set >
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=CHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=CHAR},
+      </if>
+      <if test="record.realname != null" >
+        realname = #{record.realname,jdbcType=CHAR},
+      </if>
+      <if test="record.idnumber != null" >
+        idnumber = #{record.idnumber,jdbcType=CHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=CHAR},
+      </if>
+      <if test="record.passwordSms != null" >
+        password_sms = #{record.passwordSms,jdbcType=CHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=CHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=CHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=CHAR},
+      </if>
+      <if test="record.threads != null" >
+        threads = #{record.threads,jdbcType=INTEGER},
+      </if>
+      <if test="record.posts != null" >
+        posts = #{record.posts,jdbcType=INTEGER},
+      </if>
+      <if test="record.credits != null" >
+        credits = #{record.credits,jdbcType=INTEGER},
+      </if>
+      <if test="record.golds != null" >
+        golds = #{record.golds,jdbcType=INTEGER},
+      </if>
+      <if test="record.rmbs != null" >
+        rmbs = #{record.rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="record.createIp != null" >
+        create_ip = #{record.createIp,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginIp != null" >
+        login_ip = #{record.loginIp,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginDate != null" >
+        login_date = #{record.loginDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.logins != null" >
+        logins = #{record.logins,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatar != null" >
+        avatar = #{record.avatar,jdbcType=INTEGER},
+      </if>
+      <if test="record.digests != null" >
+        digests = #{record.digests,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_user
+    set uid = #{record.uid,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=SMALLINT},
+      email = #{record.email,jdbcType=CHAR},
+      username = #{record.username,jdbcType=CHAR},
+      realname = #{record.realname,jdbcType=CHAR},
+      idnumber = #{record.idnumber,jdbcType=CHAR},
+      password = #{record.password,jdbcType=CHAR},
+      password_sms = #{record.passwordSms,jdbcType=CHAR},
+      salt = #{record.salt,jdbcType=CHAR},
+      mobile = #{record.mobile,jdbcType=CHAR},
+      qq = #{record.qq,jdbcType=CHAR},
+      threads = #{record.threads,jdbcType=INTEGER},
+      posts = #{record.posts,jdbcType=INTEGER},
+      credits = #{record.credits,jdbcType=INTEGER},
+      golds = #{record.golds,jdbcType=INTEGER},
+      rmbs = #{record.rmbs,jdbcType=INTEGER},
+      create_ip = #{record.createIp,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      login_ip = #{record.loginIp,jdbcType=INTEGER},
+      login_date = #{record.loginDate,jdbcType=INTEGER},
+      logins = #{record.logins,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=INTEGER},
+      digests = #{record.digests,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsUser" >
+    update bbs_user
+    <set >
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=SMALLINT},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=CHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=CHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=CHAR},
+      </if>
+      <if test="idnumber != null" >
+        idnumber = #{idnumber,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="passwordSms != null" >
+        password_sms = #{passwordSms,jdbcType=CHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=CHAR},
+      </if>
+      <if test="threads != null" >
+        threads = #{threads,jdbcType=INTEGER},
+      </if>
+      <if test="posts != null" >
+        posts = #{posts,jdbcType=INTEGER},
+      </if>
+      <if test="credits != null" >
+        credits = #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="golds != null" >
+        golds = #{golds,jdbcType=INTEGER},
+      </if>
+      <if test="rmbs != null" >
+        rmbs = #{rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="createIp != null" >
+        create_ip = #{createIp,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        login_ip = #{loginIp,jdbcType=INTEGER},
+      </if>
+      <if test="loginDate != null" >
+        login_date = #{loginDate,jdbcType=INTEGER},
+      </if>
+      <if test="logins != null" >
+        logins = #{logins,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=INTEGER},
+      </if>
+      <if test="digests != null" >
+        digests = #{digests,jdbcType=TINYINT},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsUser" >
+    update bbs_user
+    set gid = #{gid,jdbcType=SMALLINT},
+      email = #{email,jdbcType=CHAR},
+      username = #{username,jdbcType=CHAR},
+      realname = #{realname,jdbcType=CHAR},
+      idnumber = #{idnumber,jdbcType=CHAR},
+      password = #{password,jdbcType=CHAR},
+      password_sms = #{passwordSms,jdbcType=CHAR},
+      salt = #{salt,jdbcType=CHAR},
+      mobile = #{mobile,jdbcType=CHAR},
+      qq = #{qq,jdbcType=CHAR},
+      threads = #{threads,jdbcType=INTEGER},
+      posts = #{posts,jdbcType=INTEGER},
+      credits = #{credits,jdbcType=INTEGER},
+      golds = #{golds,jdbcType=INTEGER},
+      rmbs = #{rmbs,jdbcType=INTEGER},
+      create_ip = #{createIp,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=INTEGER},
+      login_ip = #{loginIp,jdbcType=INTEGER},
+      login_date = #{loginDate,jdbcType=INTEGER},
+      logins = #{logins,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=INTEGER},
+      digests = #{digests,jdbcType=TINYINT}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>

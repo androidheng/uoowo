@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsKvMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsKv" >
+    <id column="k" property="k" jdbcType="CHAR" />
+    <result column="expiry" property="expiry" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.uoowo.bean.BbsKv" extends="BaseResultMap" >
+    <result column="v" property="v" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    k, expiry
+  </sql>
+  <sql id="Blob_Column_List" >
+    v
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.uoowo.bean.BbsKvExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_kv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsKvExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_kv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_kv
+    where k = #{k,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bbs_kv
+    where k = #{k,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsKvExample" >
+    delete from bbs_kv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsKv" >
+    insert into bbs_kv (k, expiry, v
+      )
+    values (#{k,jdbcType=CHAR}, #{expiry,jdbcType=INTEGER}, #{v,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsKv" >
+    insert into bbs_kv
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="k != null" >
+        k,
+      </if>
+      <if test="expiry != null" >
+        expiry,
+      </if>
+      <if test="v != null" >
+        v,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="k != null" >
+        #{k,jdbcType=CHAR},
+      </if>
+      <if test="expiry != null" >
+        #{expiry,jdbcType=INTEGER},
+      </if>
+      <if test="v != null" >
+        #{v,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsKvExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_kv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_kv
+    <set >
+      <if test="record.k != null" >
+        k = #{record.k,jdbcType=CHAR},
+      </if>
+      <if test="record.expiry != null" >
+        expiry = #{record.expiry,jdbcType=INTEGER},
+      </if>
+      <if test="record.v != null" >
+        v = #{record.v,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update bbs_kv
+    set k = #{record.k,jdbcType=CHAR},
+      expiry = #{record.expiry,jdbcType=INTEGER},
+      v = #{record.v,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_kv
+    set k = #{record.k,jdbcType=CHAR},
+      expiry = #{record.expiry,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsKv" >
+    update bbs_kv
+    <set >
+      <if test="expiry != null" >
+        expiry = #{expiry,jdbcType=INTEGER},
+      </if>
+      <if test="v != null" >
+        v = #{v,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where k = #{k,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.uoowo.bean.BbsKv" >
+    update bbs_kv
+    set expiry = #{expiry,jdbcType=INTEGER},
+      v = #{v,jdbcType=LONGVARCHAR}
+    where k = #{k,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsKv" >
+    update bbs_kv
+    set expiry = #{expiry,jdbcType=INTEGER}
+    where k = #{k,jdbcType=CHAR}
+  </update>
+</mapper>

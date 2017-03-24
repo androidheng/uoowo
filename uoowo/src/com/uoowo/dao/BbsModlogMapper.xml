@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsModlogMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsModlog" >
+    <id column="logid" property="logid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="subject" property="subject" jdbcType="CHAR" />
+    <result column="comment" property="comment" jdbcType="CHAR" />
+    <result column="rmbs" property="rmbs" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="action" property="action" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    logid, uid, tid, pid, subject, comment, rmbs, create_date, action
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsModlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_modlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_modlog
+    where logid = #{logid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bbs_modlog
+    where logid = #{logid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsModlogExample" >
+    delete from bbs_modlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsModlog" >
+    insert into bbs_modlog (logid, uid, tid, 
+      pid, subject, comment, rmbs, 
+      create_date, action)
+    values (#{logid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, 
+      #{pid,jdbcType=INTEGER}, #{subject,jdbcType=CHAR}, #{comment,jdbcType=CHAR}, #{rmbs,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=INTEGER}, #{action,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsModlog" >
+    insert into bbs_modlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        logid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="rmbs != null" >
+        rmbs,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        #{logid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=CHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=CHAR},
+      </if>
+      <if test="rmbs != null" >
+        #{rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsModlogExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_modlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_modlog
+    <set >
+      <if test="record.logid != null" >
+        logid = #{record.logid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.subject != null" >
+        subject = #{record.subject,jdbcType=CHAR},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=CHAR},
+      </if>
+      <if test="record.rmbs != null" >
+        rmbs = #{record.rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.action != null" >
+        action = #{record.action,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_modlog
+    set logid = #{record.logid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      subject = #{record.subject,jdbcType=CHAR},
+      comment = #{record.comment,jdbcType=CHAR},
+      rmbs = #{record.rmbs,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      action = #{record.action,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsModlog" >
+    update bbs_modlog
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=CHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=CHAR},
+      </if>
+      <if test="rmbs != null" >
+        rmbs = #{rmbs,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=CHAR},
+      </if>
+    </set>
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsModlog" >
+    update bbs_modlog
+    set uid = #{uid,jdbcType=INTEGER},
+      tid = #{tid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      subject = #{subject,jdbcType=CHAR},
+      comment = #{comment,jdbcType=CHAR},
+      rmbs = #{rmbs,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=INTEGER},
+      action = #{action,jdbcType=CHAR}
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+</mapper>

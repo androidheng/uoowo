@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsThreadMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsThread" >
+    <id column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="SMALLINT" />
+    <result column="top" property="top" jdbcType="BIT" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="userip" property="userip" jdbcType="INTEGER" />
+    <result column="subject" property="subject" jdbcType="CHAR" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="last_date" property="lastDate" jdbcType="INTEGER" />
+    <result column="views" property="views" jdbcType="INTEGER" />
+    <result column="posts" property="posts" jdbcType="INTEGER" />
+    <result column="images" property="images" jdbcType="TINYINT" />
+    <result column="files" property="files" jdbcType="TINYINT" />
+    <result column="mods" property="mods" jdbcType="TINYINT" />
+    <result column="closed" property="closed" jdbcType="BIT" />
+    <result column="firstpid" property="firstpid" jdbcType="INTEGER" />
+    <result column="lastuid" property="lastuid" jdbcType="INTEGER" />
+    <result column="lastpid" property="lastpid" jdbcType="INTEGER" />
+    <!-- <result column="digest" property="digest" jdbcType="TINYINT" /> -->
+    <!-- <result column="tagids" property="tagids" jdbcType="CHAR" />
+    <result column="tagids_time" property="tagidsTime" jdbcType="INTEGER" /> -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tid, fid, top, uid, subject, create_date, last_date, views, posts, images, 
+    files, mods, closed, firstpid, lastuid, lastpid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsThreadExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_thread
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_thread
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bbs_thread
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsThreadExample" >
+    delete from bbs_thread
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsThread" >
+    insert into bbs_thread (tid, fid, top, uid, 
+      userip, subject, create_date, 
+      last_date, views, posts, 
+      images, files, mods, 
+      closed, firstpid, lastuid, 
+      lastpid, digest, tagids, 
+      tagids_time)
+    values (#{tid,jdbcType=INTEGER}, #{fid,jdbcType=SMALLINT}, #{top,jdbcType=BIT}, #{uid,jdbcType=INTEGER}, 
+      #{userip,jdbcType=INTEGER}, #{subject,jdbcType=CHAR}, #{createDate,jdbcType=INTEGER}, 
+      #{lastDate,jdbcType=INTEGER}, #{views,jdbcType=INTEGER}, #{posts,jdbcType=INTEGER}, 
+      #{images,jdbcType=TINYINT}, #{files,jdbcType=TINYINT}, #{mods,jdbcType=TINYINT}, 
+      #{closed,jdbcType=BIT}, #{firstpid,jdbcType=INTEGER}, #{lastuid,jdbcType=INTEGER}, 
+      #{lastpid,jdbcType=INTEGER}, #{digest,jdbcType=TINYINT}, #{tagids,jdbcType=CHAR}, 
+      #{tagidsTime,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsThread" >
+    insert into bbs_thread
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="top != null" >
+        top,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="userip != null" >
+        userip,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="lastDate != null" >
+        last_date,
+      </if>
+      <if test="views != null" >
+        views,
+      </if>
+      <if test="posts != null" >
+        posts,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="files != null" >
+        files,
+      </if>
+      <if test="mods != null" >
+        mods,
+      </if>
+      <if test="closed != null" >
+        closed,
+      </if>
+      <if test="firstpid != null" >
+        firstpid,
+      </if>
+      <if test="lastuid != null" >
+        lastuid,
+      </if>
+      <if test="lastpid != null" >
+        lastpid,
+      </if>
+      <if test="digest != null" >
+        digest,
+      </if>
+      <if test="tagids != null" >
+        tagids,
+      </if>
+      <if test="tagidsTime != null" >
+        tagids_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=SMALLINT},
+      </if>
+      <if test="top != null" >
+        #{top,jdbcType=BIT},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="userip != null" >
+        #{userip,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="lastDate != null" >
+        #{lastDate,jdbcType=INTEGER},
+      </if>
+      <if test="views != null" >
+        #{views,jdbcType=INTEGER},
+      </if>
+      <if test="posts != null" >
+        #{posts,jdbcType=INTEGER},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=TINYINT},
+      </if>
+      <if test="files != null" >
+        #{files,jdbcType=TINYINT},
+      </if>
+      <if test="mods != null" >
+        #{mods,jdbcType=TINYINT},
+      </if>
+      <if test="closed != null" >
+        #{closed,jdbcType=BIT},
+      </if>
+      <if test="firstpid != null" >
+        #{firstpid,jdbcType=INTEGER},
+      </if>
+      <if test="lastuid != null" >
+        #{lastuid,jdbcType=INTEGER},
+      </if>
+      <if test="lastpid != null" >
+        #{lastpid,jdbcType=INTEGER},
+      </if>
+      <if test="digest != null" >
+        #{digest,jdbcType=TINYINT},
+      </if>
+      <if test="tagids != null" >
+        #{tagids,jdbcType=CHAR},
+      </if>
+      <if test="tagidsTime != null" >
+        #{tagidsTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsThreadExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_thread
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_thread
+    <set >
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.top != null" >
+        top = #{record.top,jdbcType=BIT},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userip != null" >
+        userip = #{record.userip,jdbcType=INTEGER},
+      </if>
+      <if test="record.subject != null" >
+        subject = #{record.subject,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastDate != null" >
+        last_date = #{record.lastDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.views != null" >
+        views = #{record.views,jdbcType=INTEGER},
+      </if>
+      <if test="record.posts != null" >
+        posts = #{record.posts,jdbcType=INTEGER},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=TINYINT},
+      </if>
+      <if test="record.files != null" >
+        files = #{record.files,jdbcType=TINYINT},
+      </if>
+      <if test="record.mods != null" >
+        mods = #{record.mods,jdbcType=TINYINT},
+      </if>
+      <if test="record.closed != null" >
+        closed = #{record.closed,jdbcType=BIT},
+      </if>
+      <if test="record.firstpid != null" >
+        firstpid = #{record.firstpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastuid != null" >
+        lastuid = #{record.lastuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastpid != null" >
+        lastpid = #{record.lastpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.digest != null" >
+        digest = #{record.digest,jdbcType=TINYINT},
+      </if>
+      <if test="record.tagids != null" >
+        tagids = #{record.tagids,jdbcType=CHAR},
+      </if>
+      <if test="record.tagidsTime != null" >
+        tagids_time = #{record.tagidsTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_thread
+    set tid = #{record.tid,jdbcType=INTEGER},
+      fid = #{record.fid,jdbcType=SMALLINT},
+      top = #{record.top,jdbcType=BIT},
+      uid = #{record.uid,jdbcType=INTEGER},
+      userip = #{record.userip,jdbcType=INTEGER},
+      subject = #{record.subject,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      last_date = #{record.lastDate,jdbcType=INTEGER},
+      views = #{record.views,jdbcType=INTEGER},
+      posts = #{record.posts,jdbcType=INTEGER},
+      images = #{record.images,jdbcType=TINYINT},
+      files = #{record.files,jdbcType=TINYINT},
+      mods = #{record.mods,jdbcType=TINYINT},
+      closed = #{record.closed,jdbcType=BIT},
+      firstpid = #{record.firstpid,jdbcType=INTEGER},
+      lastuid = #{record.lastuid,jdbcType=INTEGER},
+      lastpid = #{record.lastpid,jdbcType=INTEGER},
+      digest = #{record.digest,jdbcType=TINYINT},
+      tagids = #{record.tagids,jdbcType=CHAR},
+      tagids_time = #{record.tagidsTime,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsThread" >
+    update bbs_thread
+    <set >
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=SMALLINT},
+      </if>
+      <if test="top != null" >
+        top = #{top,jdbcType=BIT},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="userip != null" >
+        userip = #{userip,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="lastDate != null" >
+        last_date = #{lastDate,jdbcType=INTEGER},
+      </if>
+      <if test="views != null" >
+        views = #{views,jdbcType=INTEGER},
+      </if>
+      <if test="posts != null" >
+        posts = #{posts,jdbcType=INTEGER},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=TINYINT},
+      </if>
+      <if test="files != null" >
+        files = #{files,jdbcType=TINYINT},
+      </if>
+      <if test="mods != null" >
+        mods = #{mods,jdbcType=TINYINT},
+      </if>
+      <if test="closed != null" >
+        closed = #{closed,jdbcType=BIT},
+      </if>
+      <if test="firstpid != null" >
+        firstpid = #{firstpid,jdbcType=INTEGER},
+      </if>
+      <if test="lastuid != null" >
+        lastuid = #{lastuid,jdbcType=INTEGER},
+      </if>
+      <if test="lastpid != null" >
+        lastpid = #{lastpid,jdbcType=INTEGER},
+      </if>
+      <if test="digest != null" >
+        digest = #{digest,jdbcType=TINYINT},
+      </if>
+      <if test="tagids != null" >
+        tagids = #{tagids,jdbcType=CHAR},
+      </if>
+      <if test="tagidsTime != null" >
+        tagids_time = #{tagidsTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsThread" >
+    update bbs_thread
+    set fid = #{fid,jdbcType=SMALLINT},
+      top = #{top,jdbcType=BIT},
+      uid = #{uid,jdbcType=INTEGER},
+      userip = #{userip,jdbcType=INTEGER},
+      subject = #{subject,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=INTEGER},
+      last_date = #{lastDate,jdbcType=INTEGER},
+      views = #{views,jdbcType=INTEGER},
+      posts = #{posts,jdbcType=INTEGER},
+      images = #{images,jdbcType=TINYINT},
+      files = #{files,jdbcType=TINYINT},
+      mods = #{mods,jdbcType=TINYINT},
+      closed = #{closed,jdbcType=BIT},
+      firstpid = #{firstpid,jdbcType=INTEGER},
+      lastuid = #{lastuid,jdbcType=INTEGER},
+      lastpid = #{lastpid,jdbcType=INTEGER},
+      digest = #{digest,jdbcType=TINYINT},
+      tagids = #{tagids,jdbcType=CHAR},
+      tagids_time = #{tagidsTime,jdbcType=INTEGER}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <select id="findAllBbsItem" resultType="com.uoowo.bean.BbsItem" parameterType="java.lang.Integer">
+		  
+		SELECT 
+		  a.fid fid,
+		  d.name,
+		  a.tid tid,
+		  a.uid uid,
+		  e.username,
+		  a.SUBJECT SUBJECT,
+		  a.create_date,
+		  a.views,
+		  a.posts,
+		  b.pid,
+		  b.images,
+		  b.message,
+		  b.message_fmt,
+		  c.filename 
+		FROM bbs_thread a 
+		LEFT JOIN bbs_post b ON a.tid=b.tid
+		LEFT JOIN  bbs_attach c ON a.tid=c.tid
+		LEFT JOIN bbs_forum  d ON a.fid=d.fid
+		LEFT JOIN bbs_user e  on a.uid=e.uid
+		WHERE   b.doctype = 0 
+		AND a.fid=#{fid}
+  </select>
+  
+  <select id="findAllBbsItems" resultType="com.uoowo.bean.BbsItem" >
+		SELECT 
+		  a.fid fid,
+		  d.name,
+		  a.tid tid,
+		  a.uid uid,
+		  e.username,
+		  a.SUBJECT SUBJECT,
+		  a.create_date,
+		  a.views,
+		  a.posts,
+		  b.pid,
+		  b.images,
+		  b.message,
+		  b.message_fmt,
+		  c.filename 
+		FROM bbs_thread a 
+		LEFT JOIN bbs_post b ON a.tid=b.tid
+		LEFT JOIN  bbs_attach c ON a.tid=c.tid
+		LEFT JOIN bbs_forum  d ON a.fid=d.fid
+		LEFT JOIN bbs_user e  on a.uid=e.uid
+		WHERE   b.doctype = 0 
+  </select>
+  <!--评论sql  
+  SELECT * FROM bbs_post where tid=4 and doctype=1
+  -->
+</mapper>

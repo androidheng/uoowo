@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsFriendlinkMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsFriendlink" >
+    <id column="linkid" property="linkid" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="rank" property="rank" jdbcType="SMALLINT" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="url" property="url" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    linkid, type, rank, create_date, name, url
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsFriendlinkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_friendlink
+    where linkid = #{linkid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from bbs_friendlink
+    where linkid = #{linkid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsFriendlinkExample" >
+    delete from bbs_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsFriendlink" >
+    insert into bbs_friendlink (linkid, type, rank, 
+      create_date, name, url)
+    values (#{linkid,jdbcType=BIGINT}, #{type,jdbcType=SMALLINT}, #{rank,jdbcType=SMALLINT}, 
+      #{createDate,jdbcType=INTEGER}, #{name,jdbcType=CHAR}, #{url,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsFriendlink" >
+    insert into bbs_friendlink
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="linkid != null" >
+        linkid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="linkid != null" >
+        #{linkid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=SMALLINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsFriendlinkExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_friendlink
+    <set >
+      <if test="record.linkid != null" >
+        linkid = #{record.linkid,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=SMALLINT},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_friendlink
+    set linkid = #{record.linkid,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=SMALLINT},
+      rank = #{record.rank,jdbcType=SMALLINT},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=CHAR},
+      url = #{record.url,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsFriendlink" >
+    update bbs_friendlink
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=SMALLINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=CHAR},
+      </if>
+    </set>
+    where linkid = #{linkid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsFriendlink" >
+    update bbs_friendlink
+    set type = #{type,jdbcType=SMALLINT},
+      rank = #{rank,jdbcType=SMALLINT},
+      create_date = #{createDate,jdbcType=INTEGER},
+      name = #{name,jdbcType=CHAR},
+      url = #{url,jdbcType=CHAR}
+    where linkid = #{linkid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsForumMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsForum" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="rank" property="rank" jdbcType="TINYINT" />
+    <result column="threads" property="threads" jdbcType="INTEGER" />
+    <result column="todayposts" property="todayposts" jdbcType="INTEGER" />
+    <result column="todaythreads" property="todaythreads" jdbcType="INTEGER" />
+    <result column="accesson" property="accesson" jdbcType="INTEGER" />
+    <result column="orderby" property="orderby" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="INTEGER" />
+    <result column="moduids" property="moduids" jdbcType="CHAR" />
+    <result column="seo_title" property="seoTitle" jdbcType="CHAR" />
+    <result column="seo_keywords" property="seoKeywords" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.uoowo.bean.BbsForumWithBLOBs" extends="BaseResultMap" >
+    <result column="brief" property="brief" jdbcType="LONGVARCHAR" />
+    <result column="announcement" property="announcement" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, name, rank, threads, todayposts, todaythreads, accesson, orderby, create_date, 
+    icon, moduids, seo_title, seo_keywords
+  </sql>
+  <sql id="Blob_Column_List" >
+    brief, announcement
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.uoowo.bean.BbsForumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_forum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsForumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_forum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_forum
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bbs_forum
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsForumExample" >
+    delete from bbs_forum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsForumWithBLOBs" >
+    insert into bbs_forum (fid, name, rank, 
+      threads, todayposts, todaythreads, 
+      accesson, orderby, create_date, 
+      icon, moduids, seo_title, 
+      seo_keywords, digests, brief, 
+      announcement)
+    values (#{fid,jdbcType=INTEGER}, #{name,jdbcType=CHAR}, #{rank,jdbcType=TINYINT}, 
+      #{threads,jdbcType=INTEGER}, #{todayposts,jdbcType=INTEGER}, #{todaythreads,jdbcType=INTEGER}, 
+      #{accesson,jdbcType=INTEGER}, #{orderby,jdbcType=TINYINT}, #{createDate,jdbcType=INTEGER}, 
+      #{icon,jdbcType=INTEGER}, #{moduids,jdbcType=CHAR}, #{seoTitle,jdbcType=CHAR}, 
+      #{seoKeywords,jdbcType=CHAR}, #{digests,jdbcType=TINYINT}, #{brief,jdbcType=LONGVARCHAR}, 
+      #{announcement,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsForumWithBLOBs" >
+    insert into bbs_forum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="threads != null" >
+        threads,
+      </if>
+      <if test="todayposts != null" >
+        todayposts,
+      </if>
+      <if test="todaythreads != null" >
+        todaythreads,
+      </if>
+      <if test="accesson != null" >
+        accesson,
+      </if>
+      <if test="orderby != null" >
+        orderby,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="moduids != null" >
+        moduids,
+      </if>
+      <if test="seoTitle != null" >
+        seo_title,
+      </if>
+      <if test="seoKeywords != null" >
+        seo_keywords,
+      </if>
+      <if test="digests != null" >
+        digests,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+      <if test="announcement != null" >
+        announcement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="threads != null" >
+        #{threads,jdbcType=INTEGER},
+      </if>
+      <if test="todayposts != null" >
+        #{todayposts,jdbcType=INTEGER},
+      </if>
+      <if test="todaythreads != null" >
+        #{todaythreads,jdbcType=INTEGER},
+      </if>
+      <if test="accesson != null" >
+        #{accesson,jdbcType=INTEGER},
+      </if>
+      <if test="orderby != null" >
+        #{orderby,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=INTEGER},
+      </if>
+      <if test="moduids != null" >
+        #{moduids,jdbcType=CHAR},
+      </if>
+      <if test="seoTitle != null" >
+        #{seoTitle,jdbcType=CHAR},
+      </if>
+      <if test="seoKeywords != null" >
+        #{seoKeywords,jdbcType=CHAR},
+      </if>
+      <if test="digests != null" >
+        #{digests,jdbcType=TINYINT},
+      </if>
+      <if test="brief != null" >
+        #{brief,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="announcement != null" >
+        #{announcement,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsForumExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_forum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_forum
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=TINYINT},
+      </if>
+      <if test="record.threads != null" >
+        threads = #{record.threads,jdbcType=INTEGER},
+      </if>
+      <if test="record.todayposts != null" >
+        todayposts = #{record.todayposts,jdbcType=INTEGER},
+      </if>
+      <if test="record.todaythreads != null" >
+        todaythreads = #{record.todaythreads,jdbcType=INTEGER},
+      </if>
+      <if test="record.accesson != null" >
+        accesson = #{record.accesson,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderby != null" >
+        orderby = #{record.orderby,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.icon != null" >
+        icon = #{record.icon,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduids != null" >
+        moduids = #{record.moduids,jdbcType=CHAR},
+      </if>
+      <if test="record.seoTitle != null" >
+        seo_title = #{record.seoTitle,jdbcType=CHAR},
+      </if>
+      <if test="record.seoKeywords != null" >
+        seo_keywords = #{record.seoKeywords,jdbcType=CHAR},
+      </if>
+      <if test="record.digests != null" >
+        digests = #{record.digests,jdbcType=TINYINT},
+      </if>
+      <if test="record.brief != null" >
+        brief = #{record.brief,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.announcement != null" >
+        announcement = #{record.announcement,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update bbs_forum
+    set fid = #{record.fid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=CHAR},
+      rank = #{record.rank,jdbcType=TINYINT},
+      threads = #{record.threads,jdbcType=INTEGER},
+      todayposts = #{record.todayposts,jdbcType=INTEGER},
+      todaythreads = #{record.todaythreads,jdbcType=INTEGER},
+      accesson = #{record.accesson,jdbcType=INTEGER},
+      orderby = #{record.orderby,jdbcType=TINYINT},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      icon = #{record.icon,jdbcType=INTEGER},
+      moduids = #{record.moduids,jdbcType=CHAR},
+      seo_title = #{record.seoTitle,jdbcType=CHAR},
+      seo_keywords = #{record.seoKeywords,jdbcType=CHAR},
+      digests = #{record.digests,jdbcType=TINYINT},
+      brief = #{record.brief,jdbcType=LONGVARCHAR},
+      announcement = #{record.announcement,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_forum
+    set fid = #{record.fid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=CHAR},
+      rank = #{record.rank,jdbcType=TINYINT},
+      threads = #{record.threads,jdbcType=INTEGER},
+      todayposts = #{record.todayposts,jdbcType=INTEGER},
+      todaythreads = #{record.todaythreads,jdbcType=INTEGER},
+      accesson = #{record.accesson,jdbcType=INTEGER},
+      orderby = #{record.orderby,jdbcType=TINYINT},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      icon = #{record.icon,jdbcType=INTEGER},
+      moduids = #{record.moduids,jdbcType=CHAR},
+      seo_title = #{record.seoTitle,jdbcType=CHAR},
+      seo_keywords = #{record.seoKeywords,jdbcType=CHAR},
+      digests = #{record.digests,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsForumWithBLOBs" >
+    update bbs_forum
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="threads != null" >
+        threads = #{threads,jdbcType=INTEGER},
+      </if>
+      <if test="todayposts != null" >
+        todayposts = #{todayposts,jdbcType=INTEGER},
+      </if>
+      <if test="todaythreads != null" >
+        todaythreads = #{todaythreads,jdbcType=INTEGER},
+      </if>
+      <if test="accesson != null" >
+        accesson = #{accesson,jdbcType=INTEGER},
+      </if>
+      <if test="orderby != null" >
+        orderby = #{orderby,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=INTEGER},
+      </if>
+      <if test="moduids != null" >
+        moduids = #{moduids,jdbcType=CHAR},
+      </if>
+      <if test="seoTitle != null" >
+        seo_title = #{seoTitle,jdbcType=CHAR},
+      </if>
+      <if test="seoKeywords != null" >
+        seo_keywords = #{seoKeywords,jdbcType=CHAR},
+      </if>
+      <if test="digests != null" >
+        digests = #{digests,jdbcType=TINYINT},
+      </if>
+      <if test="brief != null" >
+        brief = #{brief,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="announcement != null" >
+        announcement = #{announcement,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.uoowo.bean.BbsForumWithBLOBs" >
+    update bbs_forum
+    set name = #{name,jdbcType=CHAR},
+      rank = #{rank,jdbcType=TINYINT},
+      threads = #{threads,jdbcType=INTEGER},
+      todayposts = #{todayposts,jdbcType=INTEGER},
+      todaythreads = #{todaythreads,jdbcType=INTEGER},
+      accesson = #{accesson,jdbcType=INTEGER},
+      orderby = #{orderby,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=INTEGER},
+      moduids = #{moduids,jdbcType=CHAR},
+      seo_title = #{seoTitle,jdbcType=CHAR},
+      seo_keywords = #{seoKeywords,jdbcType=CHAR},
+      digests = #{digests,jdbcType=TINYINT},
+      brief = #{brief,jdbcType=LONGVARCHAR},
+      announcement = #{announcement,jdbcType=LONGVARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsForum" >
+    update bbs_forum
+    set name = #{name,jdbcType=CHAR},
+      rank = #{rank,jdbcType=TINYINT},
+      threads = #{threads,jdbcType=INTEGER},
+      todayposts = #{todayposts,jdbcType=INTEGER},
+      todaythreads = #{todaythreads,jdbcType=INTEGER},
+      accesson = #{accesson,jdbcType=INTEGER},
+      orderby = #{orderby,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=INTEGER},
+      moduids = #{moduids,jdbcType=CHAR},
+      seo_title = #{seoTitle,jdbcType=CHAR},
+      seo_keywords = #{seoKeywords,jdbcType=CHAR},
+      digests = #{digests,jdbcType=TINYINT}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoowo.dao.BbsGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.uoowo.bean.BbsGroup" >
+    <id column="gid" property="gid" jdbcType="SMALLINT" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="creditsfrom" property="creditsfrom" jdbcType="INTEGER" />
+    <result column="creditsto" property="creditsto" jdbcType="INTEGER" />
+    <result column="allowread" property="allowread" jdbcType="INTEGER" />
+    <result column="allowthread" property="allowthread" jdbcType="INTEGER" />
+    <result column="allowpost" property="allowpost" jdbcType="INTEGER" />
+    <result column="allowattach" property="allowattach" jdbcType="INTEGER" />
+    <result column="allowdown" property="allowdown" jdbcType="INTEGER" />
+    <result column="allowtop" property="allowtop" jdbcType="INTEGER" />
+    <result column="allowupdate" property="allowupdate" jdbcType="INTEGER" />
+    <result column="allowdelete" property="allowdelete" jdbcType="INTEGER" />
+    <result column="allowmove" property="allowmove" jdbcType="INTEGER" />
+    <result column="allowbanuser" property="allowbanuser" jdbcType="INTEGER" />
+    <result column="allowdeleteuser" property="allowdeleteuser" jdbcType="INTEGER" />
+    <result column="allowviewip" property="allowviewip" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gid, name, creditsfrom, creditsto, allowread, allowthread, allowpost, allowattach, 
+    allowdown, allowtop, allowupdate, allowdelete, allowmove, allowbanuser, allowdeleteuser, 
+    allowviewip
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoowo.bean.BbsGroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_group
+    where gid = #{gid,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from bbs_group
+    where gid = #{gid,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoowo.bean.BbsGroupExample" >
+    delete from bbs_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoowo.bean.BbsGroup" >
+    insert into bbs_group (gid, name, creditsfrom, 
+      creditsto, allowread, allowthread, 
+      allowpost, allowattach, allowdown, 
+      allowtop, allowupdate, allowdelete, 
+      allowmove, allowbanuser, allowdeleteuser, 
+      allowviewip)
+    values (#{gid,jdbcType=SMALLINT}, #{name,jdbcType=CHAR}, #{creditsfrom,jdbcType=INTEGER}, 
+      #{creditsto,jdbcType=INTEGER}, #{allowread,jdbcType=INTEGER}, #{allowthread,jdbcType=INTEGER}, 
+      #{allowpost,jdbcType=INTEGER}, #{allowattach,jdbcType=INTEGER}, #{allowdown,jdbcType=INTEGER}, 
+      #{allowtop,jdbcType=INTEGER}, #{allowupdate,jdbcType=INTEGER}, #{allowdelete,jdbcType=INTEGER}, 
+      #{allowmove,jdbcType=INTEGER}, #{allowbanuser,jdbcType=INTEGER}, #{allowdeleteuser,jdbcType=INTEGER}, 
+      #{allowviewip,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoowo.bean.BbsGroup" >
+    insert into bbs_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="creditsfrom != null" >
+        creditsfrom,
+      </if>
+      <if test="creditsto != null" >
+        creditsto,
+      </if>
+      <if test="allowread != null" >
+        allowread,
+      </if>
+      <if test="allowthread != null" >
+        allowthread,
+      </if>
+      <if test="allowpost != null" >
+        allowpost,
+      </if>
+      <if test="allowattach != null" >
+        allowattach,
+      </if>
+      <if test="allowdown != null" >
+        allowdown,
+      </if>
+      <if test="allowtop != null" >
+        allowtop,
+      </if>
+      <if test="allowupdate != null" >
+        allowupdate,
+      </if>
+      <if test="allowdelete != null" >
+        allowdelete,
+      </if>
+      <if test="allowmove != null" >
+        allowmove,
+      </if>
+      <if test="allowbanuser != null" >
+        allowbanuser,
+      </if>
+      <if test="allowdeleteuser != null" >
+        allowdeleteuser,
+      </if>
+      <if test="allowviewip != null" >
+        allowviewip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        #{gid,jdbcType=SMALLINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="creditsfrom != null" >
+        #{creditsfrom,jdbcType=INTEGER},
+      </if>
+      <if test="creditsto != null" >
+        #{creditsto,jdbcType=INTEGER},
+      </if>
+      <if test="allowread != null" >
+        #{allowread,jdbcType=INTEGER},
+      </if>
+      <if test="allowthread != null" >
+        #{allowthread,jdbcType=INTEGER},
+      </if>
+      <if test="allowpost != null" >
+        #{allowpost,jdbcType=INTEGER},
+      </if>
+      <if test="allowattach != null" >
+        #{allowattach,jdbcType=INTEGER},
+      </if>
+      <if test="allowdown != null" >
+        #{allowdown,jdbcType=INTEGER},
+      </if>
+      <if test="allowtop != null" >
+        #{allowtop,jdbcType=INTEGER},
+      </if>
+      <if test="allowupdate != null" >
+        #{allowupdate,jdbcType=INTEGER},
+      </if>
+      <if test="allowdelete != null" >
+        #{allowdelete,jdbcType=INTEGER},
+      </if>
+      <if test="allowmove != null" >
+        #{allowmove,jdbcType=INTEGER},
+      </if>
+      <if test="allowbanuser != null" >
+        #{allowbanuser,jdbcType=INTEGER},
+      </if>
+      <if test="allowdeleteuser != null" >
+        #{allowdeleteuser,jdbcType=INTEGER},
+      </if>
+      <if test="allowviewip != null" >
+        #{allowviewip,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoowo.bean.BbsGroupExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bbs_group
+    <set >
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.creditsfrom != null" >
+        creditsfrom = #{record.creditsfrom,jdbcType=INTEGER},
+      </if>
+      <if test="record.creditsto != null" >
+        creditsto = #{record.creditsto,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowread != null" >
+        allowread = #{record.allowread,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowthread != null" >
+        allowthread = #{record.allowthread,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowpost != null" >
+        allowpost = #{record.allowpost,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowattach != null" >
+        allowattach = #{record.allowattach,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowdown != null" >
+        allowdown = #{record.allowdown,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowtop != null" >
+        allowtop = #{record.allowtop,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowupdate != null" >
+        allowupdate = #{record.allowupdate,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowdelete != null" >
+        allowdelete = #{record.allowdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowmove != null" >
+        allowmove = #{record.allowmove,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowbanuser != null" >
+        allowbanuser = #{record.allowbanuser,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowdeleteuser != null" >
+        allowdeleteuser = #{record.allowdeleteuser,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowviewip != null" >
+        allowviewip = #{record.allowviewip,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bbs_group
+    set gid = #{record.gid,jdbcType=SMALLINT},
+      name = #{record.name,jdbcType=CHAR},
+      creditsfrom = #{record.creditsfrom,jdbcType=INTEGER},
+      creditsto = #{record.creditsto,jdbcType=INTEGER},
+      allowread = #{record.allowread,jdbcType=INTEGER},
+      allowthread = #{record.allowthread,jdbcType=INTEGER},
+      allowpost = #{record.allowpost,jdbcType=INTEGER},
+      allowattach = #{record.allowattach,jdbcType=INTEGER},
+      allowdown = #{record.allowdown,jdbcType=INTEGER},
+      allowtop = #{record.allowtop,jdbcType=INTEGER},
+      allowupdate = #{record.allowupdate,jdbcType=INTEGER},
+      allowdelete = #{record.allowdelete,jdbcType=INTEGER},
+      allowmove = #{record.allowmove,jdbcType=INTEGER},
+      allowbanuser = #{record.allowbanuser,jdbcType=INTEGER},
+      allowdeleteuser = #{record.allowdeleteuser,jdbcType=INTEGER},
+      allowviewip = #{record.allowviewip,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoowo.bean.BbsGroup" >
+    update bbs_group
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="creditsfrom != null" >
+        creditsfrom = #{creditsfrom,jdbcType=INTEGER},
+      </if>
+      <if test="creditsto != null" >
+        creditsto = #{creditsto,jdbcType=INTEGER},
+      </if>
+      <if test="allowread != null" >
+        allowread = #{allowread,jdbcType=INTEGER},
+      </if>
+      <if test="allowthread != null" >
+        allowthread = #{allowthread,jdbcType=INTEGER},
+      </if>
+      <if test="allowpost != null" >
+        allowpost = #{allowpost,jdbcType=INTEGER},
+      </if>
+      <if test="allowattach != null" >
+        allowattach = #{allowattach,jdbcType=INTEGER},
+      </if>
+      <if test="allowdown != null" >
+        allowdown = #{allowdown,jdbcType=INTEGER},
+      </if>
+      <if test="allowtop != null" >
+        allowtop = #{allowtop,jdbcType=INTEGER},
+      </if>
+      <if test="allowupdate != null" >
+        allowupdate = #{allowupdate,jdbcType=INTEGER},
+      </if>
+      <if test="allowdelete != null" >
+        allowdelete = #{allowdelete,jdbcType=INTEGER},
+      </if>
+      <if test="allowmove != null" >
+        allowmove = #{allowmove,jdbcType=INTEGER},
+      </if>
+      <if test="allowbanuser != null" >
+        allowbanuser = #{allowbanuser,jdbcType=INTEGER},
+      </if>
+      <if test="allowdeleteuser != null" >
+        allowdeleteuser = #{allowdeleteuser,jdbcType=INTEGER},
+      </if>
+      <if test="allowviewip != null" >
+        allowviewip = #{allowviewip,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoowo.bean.BbsGroup" >
+    update bbs_group
+    set name = #{name,jdbcType=CHAR},
+      creditsfrom = #{creditsfrom,jdbcType=INTEGER},
+      creditsto = #{creditsto,jdbcType=INTEGER},
+      allowread = #{allowread,jdbcType=INTEGER},
+      allowthread = #{allowthread,jdbcType=INTEGER},
+      allowpost = #{allowpost,jdbcType=INTEGER},
+      allowattach = #{allowattach,jdbcType=INTEGER},
+      allowdown = #{allowdown,jdbcType=INTEGER},
+      allowtop = #{allowtop,jdbcType=INTEGER},
+      allowupdate = #{allowupdate,jdbcType=INTEGER},
+      allowdelete = #{allowdelete,jdbcType=INTEGER},
+      allowmove = #{allowmove,jdbcType=INTEGER},
+      allowbanuser = #{allowbanuser,jdbcType=INTEGER},
+      allowdeleteuser = #{allowdeleteuser,jdbcType=INTEGER},
+      allowviewip = #{allowviewip,jdbcType=INTEGER}
+    where gid = #{gid,jdbcType=SMALLINT}
+  </update>
+</mapper>
