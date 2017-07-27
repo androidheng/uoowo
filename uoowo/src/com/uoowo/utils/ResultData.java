@@ -3,6 +3,7 @@ package com.uoowo.utils;
 import java.util.List;
 
 public class ResultData<T> {
+	
 	private List<T> data;
 	private Integer totalPage;
 	public List<T> getData() {
